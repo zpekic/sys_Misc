@@ -33,8 +33,10 @@ entity bin2bcd is
     Port ( reset : in  STD_LOGIC;		-- Initialize when high, note that it will drive ready low
            clk : in  STD_LOGIC;			-- Drives the FSM
            start : in  STD_LOGIC;		-- Keep high for at least 1 clock cycle to start conversion
-           bin : in  STD_LOGIC_VECTOR (15 downto 0);		-- 16-bit unsigned binary input value
+           bin : in  STD_LOGIC_VECTOR (15 downto 0);		-- 16-bit (un)signed binary input value
+			  mode: in STD_LOGIC;			-- 0 for unsigned, 1 for signed mode
 			  ready : out  STD_LOGIC;		-- pulse high when conversion is done
+			  sign: out STD_LOGIC;			-- 1 if mode is 1 and input is 2's complement negative
            bcd : buffer STD_LOGIC_VECTOR (23 downto 0);	-- 6 BCD digits output
 			  debug: out STD_LOGIC_VECTOR(3 downto 0));		-- debug port, leave open
 end bin2bcd;
@@ -119,6 +121,7 @@ begin
 		case state_current is
 			when st_reset =>
 				ready <= '0';
+				sign <= '0';
 				bcd <= X"999999"; -- just for fun debug
 				
 			when st_readytostart =>
@@ -127,7 +130,14 @@ begin
 
 			when st_loadbinval =>
 				ready <= '0';
-				bin_val <= bin;
+				-- deal with signed mode
+				if ((mode and bin(15)) = '1') then
+					bin_val <= std_logic_vector(unsigned(bin xor X"FFFF") + 1);
+					sign <= '1';
+				else
+					bin_val <= bin;
+					sign <= '0';
+				end if;
 				bcd <= X"000000";
 
 			--when st_checkzero =>

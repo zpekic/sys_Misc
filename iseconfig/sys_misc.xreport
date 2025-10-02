@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2025-06-30T14:16:00</DateModified>
+  <DateModified>2025-10-01T20:01:10</DateModified>
   <ModuleName>sys_misc</ModuleName>
   <SummaryTimeStamp>2025-06-30T14:03:16</SummaryTimeStamp>
   <SavedFilePath>C:/Users/zoltanp/Documents/HexCalc/sys_Misc/iseconfig/sys_misc.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>C:/Users/zoltanp/Documents/HexCalc/sys_Misc</ImplementationReportsDirectory>
+  <ImplementationReportsDirectory>C:/Users/zoltanp/Documents/HexCalc/sys_Misc\</ImplementationReportsDirectory>
   <DateInitialized>2025-06-27T17:52:38</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>

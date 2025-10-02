@@ -173,8 +173,10 @@ begin
 				reset => Reset,
 				clk => CLK,	
 				start => echo_done,
-				bin => echo_0,
+				bin => X"FFFE", --echo_0,
+				mode => switch(0),
 				ready => LED(1),
+				sign => LED(3),
 				bcd => i_bcd,
 				debug => open
 			);
@@ -184,14 +186,16 @@ begin
 				reset => Reset,
 				clk => CLK,
 				start => echo_done,
-				bin => echo_diff,
+				bin => X"0000", --echo_diff,
+				mode => switch(0),
 				ready => LED(0),
+				sign => LED(2),
 				bcd => n_bcd,
 				debug => open
 			);
 
-	LED(2) <= echo;
-	LED(3) <= trig;
+	--LED(2) <= echo;
+	--LED(3) <= trig;
 	
 	-- check for input change every second
 --	on_freq1: process(Reset, freq1, switch)
